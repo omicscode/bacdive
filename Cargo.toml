@@ -1,0 +1,9 @@
+[package]
+name = "pangenome-graph-bacdive"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rocket = { version = "0.5.1", features = ["json"] }
+rusqlite = "0.32.1"
+serde = "1.0.217"
