@@ -1,5 +1,5 @@
-# pangenome-graph-bacdive
-- rust based pangenome browser for [metagenome BacDive](https://bacdive.dsmz.de/)
+# bacdive
+- rust bacdive for [metagenome BacDive](https://bacdive.dsmz.de/)
 
  ```
  cargo build 
