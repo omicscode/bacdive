@@ -1,12 +1,16 @@
 # bacdive
 - rust bacdive for [metagenome BacDive](https://bacdive.dsmz.de/)
+- Isolation tale can be downloaded from here: [isolation table](https://bacdive.dsmz.de/isolation-sources).
+- please see the last commit message and if it says compiled binary then it is completed or else still in development version.
+- writing code for the plot generation of the selected ids such as [stats](https://bacdive.dsmz.de/dashboard) and integrating into a desktop application using Leptos. 
 
  ```
  cargo build 
  ```
  
 ```
- Usage: pangenome-graph-bacdive <BACDIVE> [ID] [COUNTRYSEARCH] [CATEGORY1] [CATGEORY2] [CATEGORY3] [CATEGORY] [COUNTRYLIST] [CONTINETLIST] [CATEGORY1LIST] [CATEGORY2LIST] [CATEGORY3LIST]
+ Usage: pangenome-graph-bacdive <BACDIVE> [ID] [COUNTRYSEARCH] [CATEGORY1] [CATGEORY2] [CATEGORY3] \
+                 [CATEGORY] [COUNTRYLIST] [CONTINETLIST] [CATEGORY1LIST] [CATEGORY2LIST] [CATEGORY3LIST]
 
  Arguments:
   <BACDIVE>        please provide the path to the bacdive file
