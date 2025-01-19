@@ -18,7 +18,6 @@ bacdive analyzer- analyze the microbial genotypes using the
 rust-bacdive standalone. It will prepare all the files for the
 json API for the bacdive as well as the bacdive for the sql
 insertion. I am writing a complete bacdive in RUST after this.
-
 Thank you SLB Potsdam for the wide monitor and i was able to write
 this entirely in 3-4 hours. i thank you all.
 
@@ -31,6 +30,10 @@ fn main() {
           let commandoutput = id_write(bacdive, id).unwrap();
           println!("The ids are: {:?}", commandoutput);
         }
+        Commands::Species {bacdive, species } => {
+           let commandoutput = species_write(bacdive, species).unwrap();
+           println!("The species and the associated information are: {:?}", commandoutput);
+        }
          Commands::Category1 {bacdive, category1} => {
           let commandoutput = category1_write(bacdive, category1).unwrap();
              println!("The category1 are as follow: {:?}", commandoutput);
@@ -40,7 +43,7 @@ fn main() {
           println!("The category2 searches are: {:?}", commandoutput);
          }
           Commands::Category3 {bacdive, category3} => {
-          let commandoutput = category2_write(bacdive,category3).unwrap();
+          let commandoutput = category3_write(bacdive,category3).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
          Commands::IdList {bacdive} => {
@@ -143,7 +146,7 @@ fn unique_category2(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
         uniquecategory2.insert(uniquecategory);
     }
     Ok(uniquecategory2)
-}
+  }
 
 
 fn unique_category3(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {

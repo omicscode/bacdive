@@ -20,6 +20,14 @@ pub enum Commands {
         /// specific ID
         id: String,
     },
+    /// please provide the species that need to be searched.
+    Species {
+        /// please provide the path to the bacdive file
+        bacdive: String,
+        /// specific species name. Use the species list with the bacdive file to see the species
+        /// name
+        species: String,
+    },
     /// please provide the category1 that you want to look,
     Category1 {
         /// please provide the path to the bacdive file

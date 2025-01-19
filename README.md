@@ -9,13 +9,13 @@
  ```
  
 ```
- prepairing the json for the bacdive
+prepairing the json for the bacdive
 
- Usage: bacdive <COMMAND>
+Usage: bacdive <COMMAND>
 
- Commands:
+Commands:
   id             please provide the id of the species that you want to look,
-  countrysearch  please provide the country that you want to look,
+  species        please provide the species that need to be searched
   category1      please provide the category1 that you want to look,
   category2      please provide the category2 that you want to look,
   category3      please provide the category3 that you want to look,
@@ -28,16 +28,15 @@
   category3list  this will list all the available category3 in the bacdive
   help           Print this message or the help of the given subcommand(s)
 
- Options:
+Options:
   -h, --help     Print help
   -V, --version  Print version
-
 ```
 
 - to get the subcommand 
 
 ```
- please provide the id of the species that you want to look,
+please provide the id of the species that you want to look,
 
 Usage: bacdive id <BACDIVE> <ID>
 
@@ -47,7 +46,8 @@ Arguments:
 
 Options:
   -h, --help  Print help
-➜  bacdive git:(main) ✗ ./target/debug/bacdive category1 -h
+
+ bacdive git:(main) ✗ ./target/debug/bacdive category1 -h
 please provide the category1 that you want to look,
 
 Usage: bacdive category1 <BACDIVE> <CATEGORY1>
