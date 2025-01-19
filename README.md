@@ -1,34 +1,61 @@
-# bacdive
-- rust bacdive for [metagenome BacDive](https://bacdive.dsmz.de/)
-- Isolation tale can be downloaded from here: [isolation table](https://bacdive.dsmz.de/isolation-sources).
-- please see the last commit message and if it says compiled binary then it is completed or else still in development version.
-- writing code for the plot generation of the selected ids such as [stats](https://bacdive.dsmz.de/dashboard) and integrating into a desktop application using Leptos. 
+# pangenome-graph-bacdive
+- rust based pangenome browser for [metagenome BacDive](https://bacdive.dsmz.de/)
 
  ```
  cargo build 
  ```
  
 ```
- Usage: pangenome-graph-bacdive <BACDIVE> [ID] [COUNTRYSEARCH] [CATEGORY1] [CATGEORY2] [CATEGORY3] \
-                 [CATEGORY] [COUNTRYLIST] [CONTINETLIST] [CATEGORY1LIST] [CATEGORY2LIST] [CATEGORY3LIST]
+ prepairing the json for the bacdive
 
- Arguments:
-  <BACDIVE>        please provide the path to the bacdive file
-  [ID]             please provide the id of the species that you want to look,
-  [COUNTRYSEARCH]  please provide the country that you want to look,
-  [CATEGORY1]      please provide the category1 that you want to look,
-  [CATGEORY2]      please provide the category2 that you want to look,
-  [CATEGORY3]      please provide the category3 that you want to look,
-  [CATEGORY]       please provide the category that you want to look
-  [COUNTRYLIST]    this will list all the available countries in the bacdive [possible values: true, false]
-  [CONTINETLIST]   this will list all the available continent specific information in the bacdive [possible values: true, false]
-  [CATEGORY1LIST]  this will list all the available category1 in the bacdive [possible values: true, false]
-  [CATEGORY2LIST]  this will list all the available category2 in the bacdive [possible values: true, false]
-  [CATEGORY3LIST]  this will list all the available category3 in the bacdive [possible values: true, false]
+ Usage: bacdive <COMMAND>
+
+ Commands:
+  id             please provide the id of the species that you want to look,
+  countrysearch  please provide the country that you want to look,
+  category1      please provide the category1 that you want to look,
+  category2      please provide the category2 that you want to look,
+  category3      please provide the category3 that you want to look,
+  id-list        this will list all the available unique ids present in the bacdive
+  species-list   this will list all the unique species present in the bacdive
+  countrylist    this will list all the available countries in the bacdive
+  continentlist  this will list all the available continent specific information in the bacdive
+  category1list  this will list all the available category1 in the bacdive
+  category2list  this will list all the available category2 in the bacdive
+  category3list  this will list all the available category3 in the bacdive
+  help           Print this message or the help of the given subcommand(s)
 
  Options:
   -h, --help     Print help
   -V, --version  Print version
- ```
+
+```
+
+- to get the subcommand 
+
+```
+ please provide the id of the species that you want to look,
+
+Usage: bacdive id <BACDIVE> <ID>
+
+Arguments:
+  <BACDIVE>  please provide the path to the bacdive file
+  <ID>       specific ID
+
+Options:
+  -h, --help  Print help
+➜  bacdive git:(main) ✗ ./target/debug/bacdive category1 -h
+please provide the category1 that you want to look,
+
+Usage: bacdive category1 <BACDIVE> <CATEGORY1>
+
+Arguments:
+  <BACDIVE>    please provide the path to the bacdive file
+  <CATEGORY1>  specific category1
+
+Options:
+  -h, --help  Print help
+
+```
 
 Gaurav Sablok

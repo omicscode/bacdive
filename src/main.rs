@@ -1,15 +1,14 @@
 mod args;
 mod bacdive;
-use crate::args::BacArgs;
-use crate::bacdive::BacdiveArgs;
+use crate::args::CommandParse;
+use crate::args::Commands;
 use crate::bacdive::BacdiveFilter;
 use clap::Parser;
-use rocket::serde::json::to_string;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::error::Error;
 use std::fs::File;
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader};
 
 /*
 *Author Gaurav Sablok
@@ -21,61 +20,95 @@ rust-bacdive standalone. It will prepare all the files for the
 json API for the bacdive as well as the bacdive for the sql
 insertion. I am writing a complete bacdive in RUST after this.
 
-Thank you SLB Potsdam for the wide monitor and i was able to write 
+Thank you SLB Potsdam for the wide monitor and i was able to write
 this entirely in 3-4 hours. i thank you all.
 
 */
 
 fn main() {
-     let _args = BacArgs::parse();
-    bacdive().unwrap();
-    unique_category1().unwrap();
-    unique_category2().unwrap();
-    unique_category3().unwrap();
-    unique_species().unwrap();
-    unique_country().unwrap();
+    let bacdiveargs  = CommandParse::parse();
+    match &bacdiveargs.command {
+        Commands::Id { bacdive , id  } => {
+          let commandoutput = id.unwrap();
+          println!("The ids are: {:?}", commandoutput);
+        }
+        Commands::countrysearch {bacdive, countrysearch} =>
+          let commandoutput = countrysearch.unwrap();
+         println!("the searched countries are: {:?}", commandoutput);
+         Commands::category1 {bacdive, category1} => {
+          let commandoutput = category1_write().unwrap()
+             println!("The category1 are as follow: {:?}", commandoutput);
+         }
+         Commands::category2 {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+          Commands::category3 {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+         Commands::id-list {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+         Commands::species-list {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+         Commands::countrylist {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+          Commands::continentlist {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+          Commands::category1list {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+          Commands::category2list {bacdive, category2} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+          Commands::category3list {bacdive} => {
+          let commandoutput = category2_write().unwrap();
+          println!("The category2 searches are: {:?}", commandoutput);
+         }
+
+     }
 }
 
-fn bacdive() -> Result<Vec<BacdiveArgs>, Box<dyn Error>> {
-    let args = BacArgs::parse();
-    let bacdiveopen = File::open(&args.bacdive).expect("file nout foune");
-    let bacread = BufReader::new(bacdiveopen);
-    let mut bacdivestruct: Vec<BacdiveArgs> = Vec::new();
-    let mut bacdivestringhash: Vec<String> = Vec::new();
-    for i in bacread.lines() {
-        let line = i.expect("line not present");
-        let bacsplit: Vec<_> = line.split(",").collect::<Vec<_>>();
-        bacdivestruct.push(BacdiveArgs {
-            id: bacsplit[0].to_string(),
-            species: bacsplit[1].to_string(),
-            collectionnumber: bacsplit[2].to_string(),
-            isolationsource: bacsplit[3].to_string(),
-            country: bacsplit[4].to_string(),
-            continent: bacsplit[5].to_string().replace("#", ""),
-            category1: bacsplit[6].to_string().replace("#", ""),
-            category2: bacsplit[7].to_string().replace("#", ""),
-            category3: bacsplit[8].to_string().replace("#", ""),
-        });
-        bacdivestringhash.push(line);
-    }
 
-    Ok(bacdivestruct)
-}
-
-fn bacdive_general_purpose() -> Result<Vec<String>, Box<dyn Error>> {
-    let argsbacdive = BacArgs::parse();
-    let bacopen = File::open(&argsbacdive.bacdive).expect("file not found");
-    let bacread = BufReader::new(bacopen);
+fn id(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    for i in bacread.lines() {
-        let line = i.expect("line not found");
-        bacstring.push(line);
+    if value.unwrap() == true {
+        let bacopen = File::open(path).expect("file not found");
+        let bacread = BufReader::new(bacopen);
+        for i in bacread.lines() {
+            let line = i.expect("line not found");
+            bacstring.push(line);
+        }
     }
-    Ok(bacstring)
+    let mut uniqueid: HashSet<String> = HashSet::new();
+    for i in bacstring.iter() {
+        let countryline:Vec<_> = i.split(",").collect::<Vec<_>>();
+        uniqueid.insert(countryline[0].to_string());
+    }
+
+    Ok(uniqueid)
 }
 
-fn unique_country() -> Result<HashSet<String>, Box<dyn Error>> {
-    let bacstring: Vec<String> = bacdive_general_purpose().unwrap();
+fn unique_country(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    if value.unwrap() == true {
+        let bacopen = File::open(path).expect("file not found");
+        let bacread = BufReader::new(bacopen);
+        for i in bacread.lines() {
+            let line = i.expect("line not found");
+            bacstring.push(line);
+        }
+    }
     let mut uniquecountry: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let countryline = i.split(",").collect::<Vec<_>>();
@@ -85,8 +118,16 @@ fn unique_country() -> Result<HashSet<String>, Box<dyn Error>> {
     Ok(uniquecountry)
 }
 
-fn unique_category1() -> Result<HashSet<String>, Box<dyn Error>> {
-    let bacstring: Vec<String> = bacdive_general_purpose().unwrap();
+fn unique_category1(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    if value.unwrap() == true {
+        let bacopen = File::open(path).expect("file not found");
+        let bacread = BufReader::new(bacopen);
+        for i in bacread.lines() {
+            let line = i.expect("line not found");
+            bacstring.push(line);
+        }
+    }
     let mut uniquecategory1: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let uniquecategory: String = i.split(",").collect::<Vec<_>>()[6]
@@ -97,8 +138,16 @@ fn unique_category1() -> Result<HashSet<String>, Box<dyn Error>> {
     Ok(uniquecategory1)
 }
 
-fn unique_category2() -> Result<HashSet<String>, Box<dyn Error>> {
-    let bacstring: Vec<String> = bacdive_general_purpose().unwrap();
+fn unique_category2(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    if value.unwrap() == true {
+        let bacopen = File::open(path).expect("file not found");
+        let bacread = BufReader::new(bacopen);
+        for i in bacread.lines() {
+            let line = i.expect("line not found");
+            bacstring.push(line);
+        }
+    }
     let mut uniquecategory2: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let uniquecategory: String = i.split(",").collect::<Vec<_>>()[7]
@@ -109,8 +158,17 @@ fn unique_category2() -> Result<HashSet<String>, Box<dyn Error>> {
     Ok(uniquecategory2)
 }
 
-fn unique_category3() -> Result<HashSet<String>, Box<dyn Error>> {
-    let bacstring: Vec<String> = bacdive_general_purpose().unwrap();
+
+fn unique_category3(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    if value.unwrap() == true {
+        let bacopen = File::open(path).expect("file not found");
+        let bacread = BufReader::new(bacopen);
+        for i in bacread.lines() {
+            let line = i.expect("line not found");
+            bacstring.push(line);
+        }
+    }
     let mut uniquecategory3: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let uniquecategory: String = i.split(",").collect::<Vec<_>>()[8]
@@ -121,36 +179,74 @@ fn unique_category3() -> Result<HashSet<String>, Box<dyn Error>> {
     Ok(uniquecategory3)
 }
 
-fn unique_species() -> Result<HashSet<String>, Box<dyn Error>> {
-    let bacstring: Vec<String> = bacdive_general_purpose().unwrap();
+fn unique_continent(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    if value.unwrap() == true {
+        let bacopen = File::open(path).expect("file not found");
+        let bacread = BufReader::new(bacopen);
+        for i in bacread.lines() {
+            let line = i.expect("line not found");
+            bacstring.push(line);
+        }
+    }
+    let mut uniquecontinent: HashSet<String> = HashSet::new();
+    for i in bacstring.iter() {
+        let countryline:Vec<_> = i.split(",").collect::<Vec<_>>();
+        uniquecontinent.insert(countryline[5].to_string());
+    }
+
+    Ok(uniquecontinent)
+}
+
+fn unique_species(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    if value.unwrap() == true {
+        let bacopen = File::open(path).expect("file not found");
+        let bacread = BufReader::new(bacopen);
+        for i in bacread.lines() {
+            let line = i.expect("line not found");
+            bacstring.push(line);
+        }
+    }
     let mut uniquespecies: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
-        let unique: String = i.split(",").collect::<Vec<_>>()[4].to_string();
-        uniquespecies.insert(unique);
+        let species:Vec<_> = i.split(",").collect::<Vec<_>>();
+        uniquespecies.insert(species[5].to_string());
     }
+
     Ok(uniquespecies)
 }
 
-fn species_write(id: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
-    let bacdive_call = bacdive().unwrap();
+
+
+
+fn species_write(path: &str, id: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    let bacopen = File::open(path).expect("file not found");
+    let bacread = BufReader::new(bacopen);
+    for i in bacread.lines() {
+         let line = i.expect("line nout found");
+         bacstring.push(line);
+    }
     let mut bachold: Vec<BacdiveFilter> = Vec::new();
-    for i in bacdive_call.iter() {
-        if i.species == id {
+    for i in bacstring.iter() {
+        let itersline:Vec<_> = i.split(",").collect::<Vec<_>>();
+        if itersline[1] == id {
             let mut cat1hold: Vec<String> = Vec::new();
             let mut cat2hold: Vec<String> = Vec::new();
             let mut cat3hold: Vec<String> = Vec::new();
             let mut countryhold: Vec<String> = Vec::new();
             let mut continenthold: Vec<String> = Vec::new();
-            cat1hold.push(i.category1.clone());
-            cat2hold.push(i.category2.clone());
-            cat3hold.push(i.category3.clone());
-            countryhold.push(i.country.clone());
-            continenthold.push(i.continent.clone());
+            cat1hold.push(itersline[6].to_string());
+            cat2hold.push(itersline[7].to_string());
+            cat3hold.push(itersline[8].to_string());
+            countryhold.push(itersline[4].to_string());
+            continenthold.push(itersline[5].to_string());
             bachold.push(BacdiveFilter {
-                id: i.id.clone(),
-                species: i.species.clone(),
-                collectionnumber: i.collectionnumber.clone(),
-                isolationsource: i.isolationsource.clone(),
+                id: itersline[0].to_string(),
+                species: itersline[1].to_string(),
+                collectionnumber: itersline[2].to_string(),
+                isolationsource: itersline[3].to_string(),
                 country: countryhold,
                 continent: continenthold,
                 category1: cat1hold,
@@ -163,26 +259,33 @@ fn species_write(id: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
     Ok(bachold)
 }
 
-fn country_write(count: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
-    let bacdive_call = bacdive().unwrap();
-    let mut baccountry: Vec<BacdiveFilter> = Vec::new();
-    for i in bacdive_call.iter() {
-        if i.country == count {
+fn id_write(path: &str, id: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    let bacopen = File::open(path).expect("file not found");
+    let bacread = BufReader::new(bacopen);
+    for i in bacread.lines() {
+         let line = i.expect("line nout found");
+         bacstring.push(line);
+    }
+    let mut bachold: Vec<BacdiveFilter> = Vec::new();
+    for i in bacstring.iter() {
+        let itersline:Vec<_> = i.split(",").collect::<Vec<_>>();
+        if itersline[0] == id {
             let mut cat1hold: Vec<String> = Vec::new();
             let mut cat2hold: Vec<String> = Vec::new();
             let mut cat3hold: Vec<String> = Vec::new();
             let mut countryhold: Vec<String> = Vec::new();
             let mut continenthold: Vec<String> = Vec::new();
-            cat1hold.push(i.category1.clone());
-            cat2hold.push(i.category2.clone());
-            cat3hold.push(i.category3.clone());
-            countryhold.push(i.country.clone());
-            continenthold.push(i.continent.clone());
-            baccountry.push(BacdiveFilter {
-                id: i.id.clone(),
-                species: i.species.clone(),
-                collectionnumber: i.collectionnumber.clone(),
-                isolationsource: i.isolationsource.clone(),
+            cat1hold.push(itersline[6].to_string());
+            cat2hold.push(itersline[7].to_string());
+            cat3hold.push(itersline[8].to_string());
+            countryhold.push(itersline[4].to_string());
+            continenthold.push(itersline[5].to_string());
+            bachold.push(BacdiveFilter {
+                id: itersline[0].to_string(),
+                species: itersline[1].to_string(),
+                collectionnumber: itersline[2].to_string(),
+                isolationsource: itersline[3].to_string(),
                 country: countryhold,
                 continent: continenthold,
                 category1: cat1hold,
@@ -191,29 +294,38 @@ fn country_write(count: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
             });
         }
     }
-    Ok(baccountry)
+
+    Ok(bachold)
 }
 
-fn category1(item: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
-    let bacdive_call = bacdive().unwrap();
-    let mut baccategory1: Vec<BacdiveFilter> = Vec::new();
-    for i in bacdive_call.iter() {
-        if i.category1 == item {
+
+fn category1_write(path: &str, category1: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    let bacopen = File::open(path).expect("file not found");
+    let bacread = BufReader::new(bacopen);
+    for i in bacread.lines() {
+         let line = i.expect("line nout found");
+         bacstring.push(line);
+    }
+    let mut bachold: Vec<BacdiveFilter> = Vec::new();
+    for i in bacstring.iter() {
+        let itersline:Vec<_> = i.split(",").collect::<Vec<_>>();
+        if itersline[6] == category1 {
             let mut cat1hold: Vec<String> = Vec::new();
             let mut cat2hold: Vec<String> = Vec::new();
             let mut cat3hold: Vec<String> = Vec::new();
             let mut countryhold: Vec<String> = Vec::new();
             let mut continenthold: Vec<String> = Vec::new();
-            cat1hold.push(i.category1.clone());
-            cat2hold.push(i.category2.clone());
-            cat3hold.push(i.category3.clone());
-            countryhold.push(i.country.clone());
-            continenthold.push(i.continent.clone());
-            baccategory1.push(BacdiveFilter {
-                id: i.id.clone(),
-                species: i.species.clone(),
-                collectionnumber: i.collectionnumber.clone(),
-                isolationsource: i.isolationsource.clone(),
+            cat1hold.push(itersline[6].to_string());
+            cat2hold.push(itersline[7].to_string());
+            cat3hold.push(itersline[8].to_string());
+            countryhold.push(itersline[4].to_string());
+            continenthold.push(itersline[5].to_string());
+            bachold.push(BacdiveFilter {
+                id: itersline[0].to_string(),
+                species: itersline[1].to_string(),
+                collectionnumber: itersline[2].to_string(),
+                isolationsource: itersline[3].to_string(),
                 country: countryhold,
                 continent: continenthold,
                 category1: cat1hold,
@@ -222,29 +334,38 @@ fn category1(item: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
             });
         }
     }
-    Ok(baccategory1)
+
+    Ok(bachold)
 }
 
-fn category2(item: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
-    let bacdive_call = bacdive().unwrap();
-    let mut baccategory2: Vec<BacdiveFilter> = Vec::new();
-    for i in bacdive_call.iter() {
-        if i.category2 == item {
+
+fn category2_write(path: &str, category2: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    let bacopen = File::open(path).expect("file not found");
+    let bacread = BufReader::new(bacopen);
+    for i in bacread.lines() {
+         let line = i.expect("line nout found");
+         bacstring.push(line);
+    }
+    let mut bachold: Vec<BacdiveFilter> = Vec::new();
+    for i in bacstring.iter() {
+        let itersline:Vec<_> = i.split(",").collect::<Vec<_>>();
+        if itersline[7] == category2 {
             let mut cat1hold: Vec<String> = Vec::new();
             let mut cat2hold: Vec<String> = Vec::new();
             let mut cat3hold: Vec<String> = Vec::new();
             let mut countryhold: Vec<String> = Vec::new();
             let mut continenthold: Vec<String> = Vec::new();
-            cat1hold.push(i.category1.clone());
-            cat2hold.push(i.category2.clone());
-            cat3hold.push(i.category3.clone());
-            countryhold.push(i.country.clone());
-            continenthold.push(i.continent.clone());
-            baccategory2.push(BacdiveFilter {
-                id: i.id.clone(),
-                species: i.species.clone(),
-                collectionnumber: i.collectionnumber.clone(),
-                isolationsource: i.isolationsource.clone(),
+            cat1hold.push(itersline[6].to_string());
+            cat2hold.push(itersline[7].to_string());
+            cat3hold.push(itersline[8].to_string());
+            countryhold.push(itersline[4].to_string());
+            continenthold.push(itersline[5].to_string());
+            bachold.push(BacdiveFilter {
+                id: itersline[0].to_string(),
+                species: itersline[1].to_string(),
+                collectionnumber: itersline[2].to_string(),
+                isolationsource: itersline[3].to_string(),
                 country: countryhold,
                 continent: continenthold,
                 category1: cat1hold,
@@ -253,29 +374,37 @@ fn category2(item: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
             });
         }
     }
-    Ok(baccategory2)
+
+    Ok(bachold)
 }
 
-fn category(item: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
-    let bacdive_call = bacdive().unwrap();
-    let mut baccategory3: Vec<BacdiveFilter> = Vec::new();
-    for i in bacdive_call.iter() {
-        if i.category3 == item {
+fn category3_write(path: &str, category3: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
+    let mut bacstring: Vec<String> = Vec::new();
+    let bacopen = File::open(path).expect("file not found");
+    let bacread = BufReader::new(bacopen);
+    for i in bacread.lines() {
+         let line = i.expect("line nout found");
+         bacstring.push(line);
+    }
+    let mut bachold: Vec<BacdiveFilter> = Vec::new();
+    for i in bacstring.iter() {
+        let itersline:Vec<_> = i.split(",").collect::<Vec<_>>();
+        if itersline[8] == category3 {
             let mut cat1hold: Vec<String> = Vec::new();
             let mut cat2hold: Vec<String> = Vec::new();
             let mut cat3hold: Vec<String> = Vec::new();
             let mut countryhold: Vec<String> = Vec::new();
             let mut continenthold: Vec<String> = Vec::new();
-            cat1hold.push(i.category1.clone());
-            cat2hold.push(i.category2.clone());
-            cat3hold.push(i.category3.clone());
-            countryhold.push(i.country.clone());
-            continenthold.push(i.continent.clone());
-            baccategory3.push(BacdiveFilter {
-                id: i.id.clone(),
-                species: i.species.clone(),
-                collectionnumber: i.collectionnumber.clone(),
-                isolationsource: i.isolationsource.clone(),
+            cat1hold.push(itersline[6].to_string());
+            cat2hold.push(itersline[7].to_string());
+            cat3hold.push(itersline[8].to_string());
+            countryhold.push(itersline[4].to_string());
+            continenthold.push(itersline[5].to_string());
+            bachold.push(BacdiveFilter {
+                id: itersline[0].to_string(),
+                species: itersline[1].to_string(),
+                collectionnumber: itersline[2].to_string(),
+                isolationsource: itersline[3].to_string(),
                 country: countryhold,
                 continent: continenthold,
                 category1: cat1hold,
@@ -284,5 +413,6 @@ fn category(item: &str) -> Result<Vec<BacdiveFilter>, Box<dyn Error>> {
             });
         }
     }
-    Ok(baccategory3)
+
+    Ok(bachold)
 }

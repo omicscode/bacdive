@@ -1,10 +1,9 @@
 [package]
-name = "pangenome-graph-bacdive"
+name = "bacdive"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.26", features = ["derive"] }
-rocket = { version = "0.5.1", features = ["json"] }
 rusqlite = "0.32.1"
 serde = "1.0.217"
