@@ -1,4 +1,4 @@
-# pangenome-graph-bacdive
+# bacdive-classifier
 - This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api.
 - the second part is bacdive-analyzer, which integrates all the microbial and metagenome analysis.
 - last part is the docker based rust-bacdive, which ports a bacdive straight to your computer, so that you can analyze everything as a standlaone application.
