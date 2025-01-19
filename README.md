@@ -1,5 +1,8 @@
 # pangenome-graph-bacdive
-- rust based pangenome browser for [metagenome BacDive](https://bacdive.dsmz.de/)
+- This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api.
+- the second part is bacdive-analyzer, which integrates all the microbial and metagenome analysis.
+- last part is the docker based rust-bacdive, which ports a bacdive straight to your computer, so that you can analyze everything as a standlaone application.
+- please see the last commit message and if it says compiled binary then it is completed or else still in development version.
 
  ```
  cargo build 
