@@ -4,7 +4,6 @@ use crate::args::CommandParse;
 use crate::args::Commands;
 use crate::bacdive::BacdiveFilter;
 use clap::Parser;
-use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::error::Error;
 use std::fs::File;
@@ -29,67 +28,61 @@ fn main() {
     let bacdiveargs  = CommandParse::parse();
     match &bacdiveargs.command {
         Commands::Id { bacdive , id  } => {
-          let commandoutput = id.unwrap();
+          let commandoutput = id_write(bacdive, id).unwrap();
           println!("The ids are: {:?}", commandoutput);
         }
-        Commands::countrysearch {bacdive, countrysearch} =>
-          let commandoutput = countrysearch.unwrap();
-         println!("the searched countries are: {:?}", commandoutput);
-         Commands::category1 {bacdive, category1} => {
-          let commandoutput = category1_write().unwrap()
+         Commands::Category1 {bacdive, category1} => {
+          let commandoutput = category1_write(bacdive, category1).unwrap();
              println!("The category1 are as follow: {:?}", commandoutput);
          }
-         Commands::category2 {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+             Commands::Category2 {bacdive, category2} => {
+          let commandoutput = category2_write(bacdive, category2).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-          Commands::category3 {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+          Commands::Category3 {bacdive, category3} => {
+          let commandoutput = category2_write(bacdive,category3).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-         Commands::id-list {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+         Commands::IdList {bacdive} => {
+          let commandoutput = unique_id(bacdive).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-         Commands::species-list {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+         Commands::SpeciesList {bacdive} => {
+          let commandoutput = unique_species(bacdive).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-         Commands::countrylist {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+         Commands::Countrylist {bacdive} => {
+          let commandoutput = unique_country(bacdive).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-          Commands::continentlist {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+          Commands::Continentlist {bacdive} => {
+          let commandoutput = unique_continent(bacdive).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-          Commands::category1list {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+          Commands::Category1list {bacdive} => {
+          let commandoutput = unique_category1(bacdive).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-          Commands::category2list {bacdive, category2} => {
-          let commandoutput = category2_write().unwrap();
+          Commands::Category2list {bacdive} => {
+          let commandoutput = unique_category2(bacdive).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
-          Commands::category3list {bacdive} => {
-          let commandoutput = category2_write().unwrap();
+          Commands::Category3list {bacdive} => {
+          let commandoutput = unique_category3(bacdive).unwrap();
           println!("The category2 searches are: {:?}", commandoutput);
          }
 
      }
-}
+   }
 
-
-fn id(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+fn unique_id(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    if value.unwrap() == true {
         let bacopen = File::open(path).expect("file not found");
         let bacread = BufReader::new(bacopen);
         for i in bacread.lines() {
             let line = i.expect("line not found");
             bacstring.push(line);
         }
-    }
     let mut uniqueid: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let countryline:Vec<_> = i.split(",").collect::<Vec<_>>();
@@ -99,16 +92,14 @@ fn id(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>
     Ok(uniqueid)
 }
 
-fn unique_country(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+fn unique_country(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    if value.unwrap() == true {
         let bacopen = File::open(path).expect("file not found");
         let bacread = BufReader::new(bacopen);
         for i in bacread.lines() {
             let line = i.expect("line not found");
             bacstring.push(line);
         }
-    }
     let mut uniquecountry: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let countryline = i.split(",").collect::<Vec<_>>();
@@ -118,16 +109,14 @@ fn unique_country(path: &str, value: Option<bool>) -> Result<HashSet<String>, Bo
     Ok(uniquecountry)
 }
 
-fn unique_category1(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+fn unique_category1(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    if value.unwrap() == true {
         let bacopen = File::open(path).expect("file not found");
         let bacread = BufReader::new(bacopen);
         for i in bacread.lines() {
             let line = i.expect("line not found");
             bacstring.push(line);
         }
-    }
     let mut uniquecategory1: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let uniquecategory: String = i.split(",").collect::<Vec<_>>()[6]
@@ -138,16 +127,14 @@ fn unique_category1(path: &str, value: Option<bool>) -> Result<HashSet<String>, 
     Ok(uniquecategory1)
 }
 
-fn unique_category2(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+fn unique_category2(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    if value.unwrap() == true {
         let bacopen = File::open(path).expect("file not found");
         let bacread = BufReader::new(bacopen);
         for i in bacread.lines() {
             let line = i.expect("line not found");
             bacstring.push(line);
         }
-    }
     let mut uniquecategory2: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let uniquecategory: String = i.split(",").collect::<Vec<_>>()[7]
@@ -159,16 +146,14 @@ fn unique_category2(path: &str, value: Option<bool>) -> Result<HashSet<String>, 
 }
 
 
-fn unique_category3(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+fn unique_category3(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    if value.unwrap() == true {
         let bacopen = File::open(path).expect("file not found");
         let bacread = BufReader::new(bacopen);
         for i in bacread.lines() {
             let line = i.expect("line not found");
             bacstring.push(line);
         }
-    }
     let mut uniquecategory3: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let uniquecategory: String = i.split(",").collect::<Vec<_>>()[8]
@@ -177,18 +162,16 @@ fn unique_category3(path: &str, value: Option<bool>) -> Result<HashSet<String>, 
         uniquecategory3.insert(uniquecategory);
     }
     Ok(uniquecategory3)
-}
+    }
 
-fn unique_continent(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+fn unique_continent(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    if value.unwrap() == true {
         let bacopen = File::open(path).expect("file not found");
         let bacread = BufReader::new(bacopen);
         for i in bacread.lines() {
             let line = i.expect("line not found");
             bacstring.push(line);
         }
-    }
     let mut uniquecontinent: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let countryline:Vec<_> = i.split(",").collect::<Vec<_>>();
@@ -198,16 +181,14 @@ fn unique_continent(path: &str, value: Option<bool>) -> Result<HashSet<String>, 
     Ok(uniquecontinent)
 }
 
-fn unique_species(path: &str, value: Option<bool>) -> Result<HashSet<String>, Box<dyn Error>> {
+fn unique_species(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let mut bacstring: Vec<String> = Vec::new();
-    if value.unwrap() == true {
         let bacopen = File::open(path).expect("file not found");
         let bacread = BufReader::new(bacopen);
         for i in bacread.lines() {
             let line = i.expect("line not found");
             bacstring.push(line);
         }
-    }
     let mut uniquespecies: HashSet<String> = HashSet::new();
     for i in bacstring.iter() {
         let species:Vec<_> = i.split(",").collect::<Vec<_>>();
