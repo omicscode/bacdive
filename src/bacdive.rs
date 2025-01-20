@@ -3,6 +3,8 @@
  * can be easily called as a reference call in the result.
  *
  * */
+
+
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct BacdiveArgs {
     pub id: String,
@@ -28,3 +30,15 @@ pub struct BacdiveFilter {
    pub category2:Vec<String>,
    pub category3: Vec<String>,
 }
+
+
+
+
+
+
+
+
+
+
+
+

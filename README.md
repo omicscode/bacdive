@@ -4,6 +4,10 @@
 - last part is the docker based rust-bacdive, which ports a bacdive straight to your computer, so that you can analyze everything as a standlaone application.
 - please see the last commit message and if it says compiled binary then it is completed or else still in development version.
 
+ - New Features
+ - prepare json for the restapi
+ - develops a database also for the bacdive. 
+
  ```
  cargo build 
  ```

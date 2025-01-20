@@ -13,11 +13,21 @@ pub struct CommandParse {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
+    /// prepare the json for the bacdive
+    Partition {
+     /// please provide the path to the bacdive file
+      bacdive: String,
+    },
+    /// prepare the data for the backhand api integration
+    SQLIntegrate {
+      /// please provide the path for the bacdive file
+      bacdive: String,
+    },
     /// please provide the id of the species that you want to look,
     Id {
         /// please provide the path to the bacdive file
         bacdive: String,
-        /// specific ID
+        /// specific ID:
         id: String,
     },
     /// please provide the species that need to be searched.
@@ -27,6 +37,13 @@ pub enum Commands {
         /// specific species name. Use the species list with the bacdive file to see the species
         /// name
         species: String,
+    },
+    /// please provide the country that you want to search
+    Country {
+        /// please provide the path to the bacdive file
+        bacdive: String,
+        /// name of the country that you would like to search
+        country: String,
     },
     /// please provide the category1 that you want to look,
     Category1 {
