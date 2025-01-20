@@ -1,12 +1,9 @@
 mod args;
-mod bacdive;
 use crate::args::CommandParse;
 use crate::args::Commands;
-use crate::bacdive::BacdiveArgs;
-use crate::bacdive::BacdiveFilter;
 use clap::Parser;
 use rusqlite::Connection;
-use serde_json;
+use serde::Serialize;
 use std::collections::HashSet;
 use std::error::Error;
 use std::fs::File;
@@ -102,6 +99,33 @@ fn main() {
             );
         }
     }
+}
+
+
+#[derive(Debug, Clone, PartialOrd, PartialEq, Serialize)]
+pub struct BacdiveArgs {
+    pub id: String,
+    pub species: String,
+    pub collectionnumber : String,
+    pub isolationsource: String,
+    pub country: String,
+    pub continent: String,
+    pub category1: String,
+    pub category2: String,
+    pub category3: String,
+}
+
+#[derive(Debug, Clone, Serialize, PartialOrd, PartialEq)]
+pub struct BacdiveFilter {
+   pub id: String,
+   pub species: String,
+   pub collectionnumber: String,
+   pub isolationsource: String,
+   pub country: Vec<String>,
+   pub continent: Vec<String>,
+   pub category1:Vec<String>,
+   pub category2:Vec<String>,
+   pub category3: Vec<String>,
 }
 
 fn unique_id(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
@@ -479,7 +503,7 @@ fn json_prepare(bacdive: &str) -> Result<String, Box<dyn Error>> {
             category3: linevec[8].replace("#", "").to_string(),
         };
         let jsonwritemed = serde_json::to_string(&jsonstring).unwrap();
-        writeln!(jsonwrite, "{:?}\n", jsonstring).expect("line not found");
+        writeln!(jsonwrite, "{:?}\n", jsonwritemed).expect("line not found");
     }
 
     Ok("json file have been written for data ingestion into the web api".to_string())
