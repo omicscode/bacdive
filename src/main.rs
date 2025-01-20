@@ -1,11 +1,12 @@
 mod args;
 mod bacdive;
-use rusqlite::Connection;
 use crate::args::CommandParse;
 use crate::args::Commands;
 use crate::bacdive::BacdiveArgs;
 use crate::bacdive::BacdiveFilter;
 use clap::Parser;
+use rusqlite::Connection;
+use serde_json;
 use std::collections::HashSet;
 use std::error::Error;
 use std::fs::File;
@@ -477,7 +478,7 @@ fn json_prepare(bacdive: &str) -> Result<String, Box<dyn Error>> {
             category2: linevec[7].replace("#", "").to_string(),
             category3: linevec[8].replace("#", "").to_string(),
         };
-        //let jsonwritemed = serde_json.to_string(&jsonstring).unwrap();
+        let jsonwritemed = serde_json::to_string(&jsonstring).unwrap();
         writeln!(jsonwrite, "{:?}\n", jsonstring).expect("line not found");
     }
 
@@ -527,15 +528,23 @@ fn rust_backhand(bacdive: &str) -> Result<String, Box<dyn Error>> {
         (),
     );
 
-
     for i in backdivesql.iter() {
-        backdiveconnection.execute (
-               "INSERT INTO bacdive_sql(SPECIESID, SPECIFC, COLLECTION_NUMBER, ISOLATION_SOURCE,
+        backdiveconnection.execute(
+            "INSERT INTO bacdive_sql(SPECIESID, SPECIFC, COLLECTION_NUMBER, ISOLATION_SOURCE,
                COUNTRY, CONTINENT, CATEGORY1, CATEGORY2, CATEGORY3)
                  values(?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)",
-                 (&i.id, &i.species, &i.collectionnumber, &i.isolationsource,
-                  &i.country, &i.continent, &i.category1, &i.category2, &i.category3),
-             )?;
+            (
+                &i.id,
+                &i.species,
+                &i.collectionnumber,
+                &i.isolationsource,
+                &i.country,
+                &i.continent,
+                &i.category1,
+                &i.category2,
+                &i.category3,
+            ),
+        )?;
     }
 
     Ok("rust banhand has been written to the sqlite3 database".to_string())

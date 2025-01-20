@@ -39,6 +39,3 @@ pub struct BacdiveFilter {
 
 
 
-
-
-
