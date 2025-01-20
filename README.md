@@ -3,8 +3,7 @@
 - the second part is bacdive-analyzer, which integrates all the microbial and metagenome analysis.
 - last part is the docker based rust-bacdive, which ports a bacdive straight to your computer, so that you can analyze everything as a standlaone application.
 - please see the last commit message and if it says compiled binary then it is completed or else still in development version.
-
- - New Features
+- New Features added today 
  - prepare json for the restapi
  - develops a database also for the bacdive. 
 
@@ -12,14 +11,18 @@
  cargo build 
  ```
  
-```
-prepairing the json for the bacdive
+ ```
+ ➜  bacdive git:(main) ./target/debug/bacdive
+ prepairing the json for the bacdive
 
-Usage: bacdive <COMMAND>
+ Usage: bacdive <COMMAND>
 
-Commands:
+ Commands:
+  partition      prepare the json for the bacdive
+  sql-integrate  prepare the data for the backhand api integration
   id             please provide the id of the species that you want to look,
   species        please provide the species that need to be searched
+  country        please provide the country that you want to search
   category1      please provide the category1 that you want to look,
   category2      please provide the category2 that you want to look,
   category3      please provide the category3 that you want to look,
@@ -35,7 +38,8 @@ Commands:
 Options:
   -h, --help     Print help
   -V, --version  Print version
-```
+
+ ```
 
 - to get the subcommand 
 
