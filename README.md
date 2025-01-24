@@ -1,6 +1,5 @@
 # bacdive-classifier
-- This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api.
-- I used extensive RUST functional programming and this prepares direct imports of the json into the javascript. 
+- This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api. I used extensive RUST functional programming and this prepares direct imports of the json into the javascript. 
 - please see the last commit message and if it says compiled binary then it is completed or else still in development version.
 
  ```
@@ -30,8 +29,6 @@
 
 - to get the subcommand 
 ```
-  ./target/debug/bacdive species-list ./sample-file/bacdive-2025-01-17.csv
-  ./target/debug/bacdive strainlist ./sample-file/bacdive-2025-01-17.csv
 ➜  bacdive git:(main) ✗ ./target/debug/bacdive id ./sample-file/bacdive-2025-01-17.csv 159652
 The ids are: [BacdiveSpeciesJson { id: "159652", species: "Abditibacterium utsteinense", strain: "DSM 105287", information: " LMG 29911,Top surface sample consisting of weathered granite parent material, elevation 1382 m,Antarctica,Australia and Oceania,Environmental,Terrestrial,Geologic" }, BacdiveSpeciesJson { id: "159652", species: "same species", strain: "same strain", information: ",,,,,Climate,Cold,Alpine" }]
 
