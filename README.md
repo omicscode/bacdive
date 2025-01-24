@@ -1,71 +1,45 @@
 # bacdive-classifier
 - This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api.
-- the second part is bacdive-analyzer, which integrates all the microbial and metagenome analysis.
-- last part is the docker based rust-bacdive, which ports a bacdive straight to your computer, so that you can analyze everything as a standlaone application.
+- I used extensive RUST functional programming and this prepares direct imports of the json into the javascript. 
 - please see the last commit message and if it says compiled binary then it is completed or else still in development version.
-- New Features added today 
- - prepare json for the restapi
- - develops a database also for the bacdive. 
 
  ```
  cargo build 
  ```
  
  ```
- ➜  bacdive git:(main) ./target/debug/bacdive
- prepairing the json for the bacdive
+➜  bacdive git:(main) ✗ ./target/debug/bacdive
+  bacdive-analyzer and prepare json
 
  Usage: bacdive <COMMAND>
 
  Commands:
-  partition      prepare the json for the bacdive
-  sql-integrate  prepare the data for the backhand api integration
-  id             please provide the id of the species that you want to look,
-  species        please provide the species that need to be searched
-  country        please provide the country that you want to search
-  category1      please provide the category1 that you want to look,
-  category2      please provide the category2 that you want to look,
-  category3      please provide the category3 that you want to look,
-  id-list        this will list all the available unique ids present in the bacdive
-  species-list   this will list all the unique species present in the bacdive
-  countrylist    this will list all the available countries in the bacdive
-  continentlist  this will list all the available continent specific information in the bacdive
-  category1list  this will list all the available category1 in the bacdive
-  category2list  this will list all the available category2 in the bacdive
-  category3list  this will list all the available category3 in the bacdive
-  help           Print this message or the help of the given subcommand(s)
+  id
+  species       please provide the species that need to be searched
+  strain        please provide the category2 that you want to look,
+  id-list       this will list all the available unique ids present in the bacdive
+  species-list  this will list all the unique species present in the bacdive
+  strainlist    this will list all the available countries in the bacdive
+  help          Print this message or the help of the given subcommand(s)
 
-Options:
+ Options:
   -h, --help     Print help
   -V, --version  Print version
 
  ```
 
 - to get the subcommand 
-
 ```
-please provide the id of the species that you want to look,
+  ./target/debug/bacdive species-list ./sample-file/bacdive-2025-01-17.csv
+  ./target/debug/bacdive strainlist ./sample-file/bacdive-2025-01-17.csv
+➜  bacdive git:(main) ✗ ./target/debug/bacdive id ./sample-file/bacdive-2025-01-17.csv 159652
+The ids are: [BacdiveSpeciesJson { id: "159652", species: "Abditibacterium utsteinense", strain: "DSM 105287", information: " LMG 29911,Top surface sample consisting of weathered granite parent material, elevation 1382 m,Antarctica,Australia and Oceania,Environmental,Terrestrial,Geologic" }, BacdiveSpeciesJson { id: "159652", species: "same species", strain: "same strain", information: ",,,,,Climate,Cold,Alpine" }]
 
-Usage: bacdive id <BACDIVE> <ID>
+➜  bacdive git:(main) ✗ ./target/debug/bacdive species ./sample-file/bacdive-2025-01-17.csv Actinocatenispora-thailandica
+The species and the associated information are: [BacdiveSpeciesJson { id: "7795", species: "Actinocatenispora thailandica", strain: "DSM 44816", information: " JCM 12343, PCU 235, BCRC 16831, CGMCC 4.5560, CIP 109347, NBRC 105041, NCIMB 14320,Environment, Soil, peat swamp forrestPeat swamp forest soilsoil,Thailand,Asia,Environmental,Terrestrial,Soil" }, BacdiveSpeciesJson { id: "161217", species: "Actinocatenispora thailandica", strain: "JCM 12344", information: " PCU 236,Peat swamp forest soil,Thailand,Asia,,," }]
 
-Arguments:
-  <BACDIVE>  please provide the path to the bacdive file
-  <ID>       specific ID
-
-Options:
-  -h, --help  Print help
-
- bacdive git:(main) ✗ ./target/debug/bacdive category1 -h
-please provide the category1 that you want to look,
-
-Usage: bacdive category1 <BACDIVE> <CATEGORY1>
-
-Arguments:
-  <BACDIVE>    please provide the path to the bacdive file
-  <CATEGORY1>  specific category1
-
-Options:
-  -h, --help  Print help
+➜  bacdive git:(main) ✗ ./target/debug/bacdive strain ./sample-file/bacdive-2025-01-17.csv DSM17304
+The strain specific information are as follows:[BacdiveSpeciesJson { id: "268", species: "Aeromonas tecta", strain: "DSM 17304", information: "tap water,Switzerland,Europe,Engineered,Built environment," }]
 
 ```
 
