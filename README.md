@@ -1,5 +1,6 @@
 # bacdive-classifier
-- This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api. I used extensive RUST functional programming and this prepares direct imports of the json into the javascript. 
+- This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api.
+- All bacdive tools merged today into a single restapi. 
 - please see the last commit message and if it says compiled binary then it is completed or else still in development version.
 
  ```
