@@ -2,13 +2,9 @@ mod args;
 use crate::args::CommandParse;
 use crate::args::Commands;
 use clap::Parser;
-use serde::Serialize;
 use std::collections::HashSet;
-use std::error::Error;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
 mod designation;
-mod designation;
+mod designationlist;
 mod idlist;
 mod idsearch;
 mod idwrite;
@@ -24,9 +20,20 @@ mod uniqueid;
 mod uniquespecies;
 mod uniquestrain;
 use crate::designation::bacdivedesignationsearch;
+use crate::designationlist::designation;
+use crate::idlist::idlist;
 use crate::idsearch::bacdiveidsearch;
+use crate::idwrite::id_write;
 use crate::species::bacdivespeciessearch;
+use crate::specieslist::species;
+use crate::specieswrite::species_write;
 use crate::strain::bacdivestrainsearch;
+use crate::strainheader::strainheader;
+use crate::strainnumber::strainnumber;
+use crate::strainwrite::strain_write;
+use crate::uniqueid::unique_id;
+use crate::uniquespecies::unique_species;
+use crate::uniquestrain::unique_strain;
 
 /*
 

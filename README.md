@@ -1,4 +1,4 @@
-# bacdive-classifier
+# bacdive
 - This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api.
 - All bacdive tools merged today into a single restapi. 
 - please see the last commit message and if it says compiled binary then it is completed or else still in development version.
@@ -8,19 +8,28 @@
  ```
  
  ```
-➜  bacdive git:(main) ✗ ./target/debug/bacdive
-  bacdive-analyzer and prepare json
+ gauravsablok@genome bacdive main ? ./target/debug/bacdive -h
+ analyses bacdive data for local analysis
 
  Usage: bacdive <COMMAND>
 
  Commands:
   id
-  species       please provide the species that need to be searched
-  strain        please provide the category2 that you want to look,
-  id-list       this will list all the available unique ids present in the bacdive
-  species-list  this will list all the unique species present in the bacdive
-  strainlist    this will list all the available countries in the bacdive
-  help          Print this message or the help of the given subcommand(s)
+  species               please provide the species that need to be searched
+  strain                please provide the category2 that you want to look,
+  id-list               this will list all the available unique ids present in the bacdive
+  species-list          this will list all the unique species present in the bacdive
+  strainlist            this will list all the available countries in the bacdive
+  id-list-analyze       present the list of the unique ids present
+  species-list-analyze  provide the species present in the bacdive
+  designation-list      provide the designation header present in the bacdive
+  strain-number-list    provide the strain number present in the bacdive
+  strainheader-list     provide the strain header present in the bacdive
+  id-search             search for the specific id and json output
+  species-search        search for the specific species and json output
+  designation-search    search for the specific designation and json output
+  strain-search         search for the specific strain and json output
+  help                  Print this message or the help of the given subcommand(s)
 
  Options:
   -h, --help     Print help

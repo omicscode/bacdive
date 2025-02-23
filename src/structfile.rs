@@ -1,3 +1,5 @@
+use serde::Serialize;
+
 #[derive(Debug, Clone, Serialize, PartialOrd, PartialEq)]
 pub struct BacdiveFilter {
     pub id: String,

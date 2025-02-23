@@ -10,7 +10,7 @@ use std::io::{BufRead, BufReader};
  Date 2024-2-23
 */
 
-fn strainnumber(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
+pub fn strainnumber(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let fileopen = File::open(path).expect("file not found");
     let fileread = BufReader::new(fileopen);
     let mut strain: HashSet<String> = HashSet::new();

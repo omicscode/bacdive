@@ -1,4 +1,16 @@
-fn designation(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
+use std::collections::HashSet;
+use std::error::Error;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+
+/*
+
+ Author Gaurav Sablok
+ SLB Potsdam
+ Date 2024-2-23
+*/
+
+pub fn designation(path: &str) -> Result<HashSet<String>, Box<dyn Error>> {
     let fileopen = File::open(path).expect("file not found");
     let fileread = BufReader::new(fileopen);
     let mut header: HashSet<String> = HashSet::new();
