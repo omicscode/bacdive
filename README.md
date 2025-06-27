@@ -1,7 +1,7 @@
 # bacdive
-- This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/) and return json for the rest api.
-- All bacdive tools merged today into a single restapi. 
-- please see the last commit message and if it says compiled binary then it is completed or else still in development version.
+
+ <img src="https://github.com/IBCHgenomic/bacdive/blob/main/bacdive.png" width="350" />
+- This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/).
 
  ```
  cargo build 
