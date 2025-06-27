@@ -1,6 +1,7 @@
 # bacdive
 
  <img src="https://github.com/IBCHgenomic/bacdive/blob/main/bacdive.png" width="350" />
+ 
 - This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/).
 
  ```
