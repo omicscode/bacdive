@@ -1,6 +1,6 @@
 # bacdive
 
- <img src="https://github.com/IBCHgenomic/bacdive/blob/main/bacdive.png" width="350" />
+ <img src="https://github.com/IBCHgenomic/bacdive/blob/main/bacdive.png" width="100" />
  
 - This analyses the isolates table from the [BacDive](https://bacdive.dsmz.de/).
 
@@ -9,7 +9,7 @@
  ```
  
  ```
- gauravsablok@genome bacdive main ? ./target/debug/bacdive -h
+ bacdive -h
  analyses bacdive data for local analysis
 
  Usage: bacdive <COMMAND>
@@ -51,4 +51,8 @@ The strain specific information are as follows:[BacdiveSpeciesJson { id: "268", 
 
 ```
 
-Gaurav Sablok
+Gaurav Sablok \
+Instytut Chemii Bioorganicznej \
+Polskiej Akademii Nauk \
+ul. Noskowskiego 12/14 | 61-704, Poznań \
+Poland
