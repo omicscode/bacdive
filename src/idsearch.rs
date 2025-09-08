@@ -1,6 +1,16 @@
-use std::fs::File;
 use std::error::Error;
+use std::fs::File;
 use std::io::{BufRead, BufReader};
+
+/*
+ Author Gaurav Sablok
+ SLB Potsdam
+ Instytut Chemii Bioorganicznej
+ Polskiej Akademii Nauk
+ ul. Noskowskiego 12/14 | 61-704, Poznań
+ Date: 2025-8-18
+ Date 2024-2-23
+*/
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct BacdiveSearchSpecies {
@@ -9,7 +19,8 @@ pub struct BacdiveSearchSpecies {
     pub speciesinformation: String,
 }
 
-pub fn bacdiveidsearch(
+#[tokio::main]
+pub async fn bacdiveidsearch(
     bacdive_analyzer: &str,
     bacdiveid: Option<String>,
 ) -> Result<Vec<BacdiveSearchSpecies>, Box<dyn Error>> {
@@ -21,9 +32,9 @@ pub fn bacdiveidsearch(
         if line.starts_with("\"") || line.starts_with("ID") || line.is_empty() {
             continue;
         } else if !line.starts_with("\"") || !line.starts_with("ID") {
-        bachold.push(line);
-    }
+            bachold.push(line);
         }
+    }
     let mut idsearch: Vec<BacdiveSearchSpecies> = Vec::new();
     if bacdiveid.is_some() {
         for i in bachold.iter() {

@@ -2,6 +2,16 @@ use std::error::Error;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
+/*
+ Author Gaurav Sablok
+ SLB Potsdam
+ Instytut Chemii Bioorganicznej
+ Polskiej Akademii Nauk
+ ul. Noskowskiego 12/14 | 61-704, Poznań
+ Date: 2025-8-18
+ Date 2024-2-23
+*/
+
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct BacdiveSearchSpecies {
     pub id: String,
@@ -9,7 +19,8 @@ pub struct BacdiveSearchSpecies {
     pub speciesinformation: String,
 }
 
-pub fn bacdivespeciessearch(
+#[tokio::main]
+pub async fn bacdivespeciessearch(
     bacdive_analyzer: &str,
     species: Option<String>,
 ) -> Result<Vec<BacdiveSearchSpecies>, Box<dyn Error>> {
@@ -21,9 +32,9 @@ pub fn bacdivespeciessearch(
         if line.starts_with("\"") || line.starts_with("ID") || line.is_empty() {
             continue;
         } else if !line.starts_with("\"") || !line.starts_with("ID") {
-        bachold.push(line);
-    }
+            bachold.push(line);
         }
+    }
     let mut speciessearch: Vec<BacdiveSearchSpecies> = Vec::new();
     if species.is_some() {
         for i in bachold.iter() {
@@ -31,7 +42,11 @@ pub fn bacdivespeciessearch(
                 .split(",")
                 .map(|x| x.replace("\"", ""))
                 .collect::<Vec<_>>();
-            if linevec[1].split(" ").collect::<Vec<_>>().join(" ").contains(&species.clone().expect("id not found"))
+            if linevec[1]
+                .split(" ")
+                .collect::<Vec<_>>()
+                .join(" ")
+                .contains(&species.clone().expect("id not found"))
             {
                 let idinsert = linevec[0].to_string();
                 let speciesinsert = linevec[1].to_string();

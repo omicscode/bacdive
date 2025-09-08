@@ -4,12 +4,17 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 /*
-
  Author Gaurav Sablok
  SLB Potsdam
+ Instytut Chemii Bioorganicznej
+ Polskiej Akademii Nauk
+ ul. Noskowskiego 12/14 | 61-704, Poznań
+ Date: 2025-8-18
  Date 2024-2-23
 */
-pub fn bacdivestrainsearch(
+
+#[tokio::main]
+pub async fn bacdivestrainsearch(
     bacdive_analyzer: &str,
     strainnumber: Option<String>,
 ) -> Result<Vec<BacdiveSearchSpecies>, Box<dyn Error>> {

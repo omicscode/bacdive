@@ -101,4 +101,9 @@ pub enum Commands {
         /// please provide the strain
         strain: Option<String>,
     },
+    /// get webmine results from the bacdive
+    WebMine {
+        /// please provide the id of the specific strain
+        strainid: String,
+    },
 }

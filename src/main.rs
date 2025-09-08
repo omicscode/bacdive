@@ -19,6 +19,7 @@ mod structfile;
 mod uniqueid;
 mod uniquespecies;
 mod uniquestrain;
+mod webmine;
 use crate::designation::bacdivedesignationsearch;
 use crate::designationlist::designation;
 use crate::idlist::idlist;
@@ -34,19 +35,24 @@ use crate::strainwrite::strain_write;
 use crate::uniqueid::unique_id;
 use crate::uniquespecies::unique_species;
 use crate::uniquestrain::unique_strain;
+use crate::webmine::webminer;
+use figlet_rs::FIGfont;
 
 /*
-
  Author Gaurav Sablok
  SLB Potsdam
- Date 2024-1-24
-
-bacdiverust - analyze the microbial genotypes using the
-rust-bacdive standalone. It will prepare all the files for the json API for the bacdive as well as the bacdive for the sql insertion.
-
+ Instytut Chemii Bioorganicznej
+ Polskiej Akademii Nauk
+ ul. Noskowskiego 12/14 | 61-704, Poznań
+ Date: 2025-8-18
+ Date 2024-2-23
 */
 
 fn main() {
+    let standard_font = FIGfont::standard().unwrap();
+    let figure = standard_font.convert("bacDIVE");
+    assert!(figure.is_some());
+    println!("{}", figure.unwrap());
     let bacdiveargs = CommandParse::parse();
     match &bacdiveargs.command {
         Commands::Id { bacdive, id } => {
@@ -155,6 +161,10 @@ fn main() {
                 "The id of the species is:{:?}\nThe species number is {:?}\nThe designation header is: {:?}\n",i.id, i.species, i.speciesinformation
             );
             }
+        }
+        Commands::WebMine { strainid } => {
+            let command = webminer(strainid).unwrap();
+            println!("The command has finished:{}", command);
         }
     }
 }
