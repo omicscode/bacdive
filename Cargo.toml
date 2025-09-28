@@ -1,12 +1,12 @@
 [package]
 name = "bacdive"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 readme = "README.md"
 license = "MIT"
 description = "bacdive rust analyzer for microbial genomics"
-homepage = "https://github.com/genomicssport/bacdive"
-repository = "https://github.com/genomicssport/bacdive"
+homepage = "https://github.com/omicscode/bacdive"
+repository = "https://github.com/omicscode/bacdive"
 [dependencies]
 clap = { version = "4.5.26", features = ["derive"] }
 figlet-rs = "0.1.5"
