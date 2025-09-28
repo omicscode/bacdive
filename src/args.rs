@@ -2,8 +2,12 @@ use clap::{Parser, Subcommand};
 #[derive(Debug, Parser)]
 #[command(
     name = "bacdive",
-    version = "1.0",
-    about = "analyses bacdive data for local analysis"
+    version = "2.0",
+    about = "analyses bacdive data for local analysis.
+    ************************************************
+    Gaurav Sablok
+    Email: codeprog@icloud.com
+    ************************************************"
 )]
 pub struct CommandParse {
     /// subcommands for the specific actions

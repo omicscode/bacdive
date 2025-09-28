@@ -10,38 +10,43 @@
 
  ```
  _                      ____    ___  __     __  _____
- | |__     __ _    ___  |  _ \  |_ _| \ \   / / | ____|
- | '_ \   / _` |  / __| | | | |  | |   \ \ / /  |  _|
- | |_) | | (_| | | (__  | |_| |  | |    \ V /   | |___
- |_.__/   \__,_|  \___| |____/  |___|    \_/    |_____|
+ _                      ____    ___  __     __  _____
+| |__     __ _    ___  |  _ \  |_ _| \ \   / / | ____|
+| '_ \   / _` |  / __| | | | |  | |   \ \ / /  |  _|
+| |_) | | (_| | | (__  | |_| |  | |    \ V /   | |___
+|_.__/   \__,_|  \___| |____/  |___|    \_/    |_____|
 
 
-analyses bacdive data for local analysis
+analyses bacdive data for local analysis.
+   ************************************************
+   Gaurav Sablok
+   Email: codeprog@icloud.com
+   ************************************************
 
 Usage: bacdive <COMMAND>
 
 Commands:
-  id
-  species               please provide the species that need to be searched
-  strain                please provide the category2 that you want to look,
-  id-list               this will list all the available unique ids present in the bacdive
-  species-list          this will list all the unique species present in the bacdive
-  strainlist            this will list all the available countries in the bacdive
-  id-list-analyze       present the list of the unique ids present
-  species-list-analyze  provide the species present in the bacdive
-  designation-list      provide the designation header present in the bacdive
-  strain-number-list    provide the strain number present in the bacdive
-  strainheader-list     provide the strain header present in the bacdive
-  id-search             search for the specific id and json output
-  species-search        search for the specific species and json output
-  designation-search    search for the specific designation and json output
-  strain-search         search for the specific strain and json output
-  web-mine              get webmine results from the bacdive
-  help                  Print this message or the help of the given subcommand(s)
+ id
+ species               please provide the species that need to be searched
+ strain                please provide the category2 that you want to look,
+ id-list               this will list all the available unique ids present in the bacdive
+ species-list          this will list all the unique species present in the bacdive
+ strainlist            this will list all the available countries in the bacdive
+ id-list-analyze       present the list of the unique ids present
+ species-list-analyze  provide the species present in the bacdive
+ designation-list      provide the designation header present in the bacdive
+ strain-number-list    provide the strain number present in the bacdive
+ strainheader-list     provide the strain header present in the bacdive
+ id-search             search for the specific id and json output
+ species-search        search for the specific species and json output
+ designation-search    search for the specific designation and json output
+ strain-search         search for the specific strain and json output
+ web-mine              get webmine results from the bacdive
+ help                  Print this message or the help of the given subcommand(s)
 
 Options:
-  -h, --help     Print help
-  -V, --version  Print version
+ -h, --help     Print help
+ -V, --version  Print version
  ```
 
 - Example usage of the bacdive:
@@ -82,8 +87,4 @@ NCBI tax ID(s): -1960156 (species)
 The command has finished:The webmine results are as follows
 ```
 
-Gaurav Sablok \
-Instytut Chemii Bioorganicznej \
-Polskiej Akademii Nauk \
-ul. Noskowskiego 12/14 | 61-704, Poznań \
-Poland
+Gaurav Sablok

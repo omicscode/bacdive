@@ -4,9 +4,7 @@ use std::error::Error;
 
 /*
  Author Gaurav Sablok
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
+ Email: codeprog@icloud.com
  Date: 2025-8-8
 */
 

@@ -4,11 +4,7 @@ use std::io::{BufRead, BufReader};
 
 /*
  Author Gaurav Sablok
- SLB Potsdam
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
- Date: 2025-8-18
+ Email: codeprog@icloud.com
  Date 2024-2-23
 */
 
